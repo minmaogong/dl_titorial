@@ -49,3 +49,18 @@ if __name__ == '__main__':
     print(y)
     y = model(X)
     print(y)
+
+    # 查看参数
+    # 1. 直接查找每个全连接层的权重和偏置
+    print(model.fc1.weight)
+    print(model.fc1.bias)
+
+    # 2. 遍历模型的参数
+    print("遍历模型参数：")
+    for name, param in model.named_parameters():
+        print(name, param)
+
+    # 3，查看状态字典
+    print("查看状态字典：")
+    dict = model.state_dict()
+    print(dict)
