@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torchsummary import summary
 
 """
     自定义神经网络模型类
@@ -64,3 +65,6 @@ if __name__ == '__main__':
     print("查看状态字典：")
     dict = model.state_dict()
     print(dict)
+
+    # 查看模型结构和参数数量
+    summary(model, input_size=(3, ), device='cpu')
