@@ -40,11 +40,14 @@ class MyModel(nn.Module): # 继承nn.Module类
 
 
 if __name__ == '__main__':
+    # 定义设备
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
     # 1. 输入数据
-    x = torch.randn(3)
-    X = torch.randn(10, 3) # 生成一个10行3列的随机张量，表示10个样本，每个样本有3个特征
+    x = torch.randn(3, device=device)
+    X = torch.randn(10, 3, device=device) # 生成一个10行3列的随机张量，表示10个样本，每个样本有3个特征
     # 2. 创建模型
-    model = MyModel()
+    model = MyModel().to(device)
     # 3. 前向传播
     y = model(x)
     print(y)
@@ -67,4 +70,4 @@ if __name__ == '__main__':
     print(dict)
 
     # 查看模型结构和参数数量
-    summary(model, input_size=(3, ), device='cpu')
+    summary(model, input_size=(3, ), device=device)
