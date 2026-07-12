@@ -4,6 +4,7 @@ from torchsummary import summary
 
 # 1. 输入数据
 X = torch.randn(10, 3) # 生成一个10行3列的随机张量，表示10条数据，每条数据3个特征
+x = torch.tensor([1, 2.0, 3])
 
 # 2. 定义模型
 model = nn.Sequential(
@@ -16,7 +17,21 @@ model = nn.Sequential(
 )
 
 # 前向传播
-y = model(X)
+y = model(x)
 print(y)
 
 summary(model, input_size=(3, ), batch_size=10, device='cpu')
+
+print("state_dict: ", model.state_dict())
+
+# 模型的保存
+# torch.save(model.state_dict(), "model.pt") # 保存模型参数到文件
+
+# 加载模型
+state_dict = torch.load("model.pt") # 加载模型参数
+
+model.load_state_dict(state_dict) # 将加载的参数赋值给模型
+
+# 用模型进行测试
+y_pred = model(x)
+print(y_pred)
