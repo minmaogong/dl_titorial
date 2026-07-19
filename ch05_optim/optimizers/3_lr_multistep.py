@@ -2,7 +2,7 @@ import torch
 from torch import optim
 import numpy as np
 from matplotlib import pyplot as plt
-from torch.optim.lr_scheduler import StepLR # 等间隔衰减
+from torch.optim.lr_scheduler import MultiStepLR # 指定间隔衰减
 
 # 定义目标函数（模拟损失函数），参数是二维向量
 def f(x):
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     optimizer = optim.SGD([x], lr=lr)
 
     # 4. 定义学习率调度器
-    lr_scheduler = StepLR(optimizer, step_size=20, gamma=0.7) # lr_scheduler.step() 每20次迭代后，学习率乘以0.1
+    lr_scheduler = MultiStepLR(optimizer, milestones=[10, 50 ,200], gamma=0.7) # 指定间隔衰减，milestones指定在哪些迭代次数后衰减，gamma指定衰减倍数
 
     # 5. 梯度下降法寻找最小值
     x0_list, x1_list, lr_list = gradient_descent(x, optimizer, lr_scheduler=lr_scheduler, num_iters=num_iters)
