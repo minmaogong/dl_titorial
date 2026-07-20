@@ -15,6 +15,14 @@ model = nn.Sequential(
     nn.Linear(100, 10) # 输出层 输出0-9 十个分类
 )
 
+# # 对模型参数赋初始值
+# def init_params(layer):
+#     if isinstance(layer, nn.Linear):
+#         nn.init.zeros_(layer.weight)
+#         # nn.init.zeros_(layer.bias)
+#
+# model.apply(init_params) # 将初始化函数添加到模型中，模型会自动调用该函数对每一层进行初始化
+
 # 3. 定义超参数
 lr = 0.1 # 学习率 学习率越大，模型收敛越快，但容易震荡，学习率越小，模型收敛越慢，但更稳定
 epochs = 20 # 将整个训练集反复训练10轮
