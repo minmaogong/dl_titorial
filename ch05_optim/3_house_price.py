@@ -45,3 +45,13 @@ batch_size = 64 # 每次用64个样本计算一次梯度并更新模型参数
 # 7. 构建数据集加载器
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=batch_size)
+
+# 8. 优化器
+optimizer = optim.Adam(model.parameters(), lr=lr)
+
+# 9. 损失函数
+def log_rmse(y_pred, y_target):
+    mse = nn.MSELoss()
+    y_pred = torch.clamp(y_pred, 1, float("inf")) # 将预测值限制在1到正无穷之间，避免对数运算出现负数或零
+    loss = torch.sqrt(mse(torch.log(y_pred), torch.log(y_target)))
+    return loss
