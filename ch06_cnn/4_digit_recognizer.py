@@ -12,9 +12,9 @@ x_val = x_val.reshape(-1, 1, 28, 28)
 
 # 2. 定义模型
 model = nn.Sequential(
-    nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, stride=1, padding=1),
+    nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, stride=1, padding=1), # 当kernel_size=3, stride=1, padding=1时，输出特征图的大小与输入特征图的大小相同
     nn.ReLU(),
-    nn.MaxPool2d(2, 2, 0),
+    nn.MaxPool2d(2, 2, 0), # 当kernel_size=2, stride=2, padding=0时，输出特征图的大小为输入特征图的一半
 
     nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, stride=1, padding=1),
     nn.ReLU(),
