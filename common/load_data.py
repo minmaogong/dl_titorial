@@ -69,9 +69,32 @@ def get_house_data():
     # y_train 和 y_test 仍然是 pd.Series 类型，转换为 numpy.ndarray 类型
     return x_train.toarray(), x_test.toarray(), y_train.values, y_test.values
 
+def get_fashion_data():
+    # 1. 读取数据
+    train_data = pd.read_csv('../data/fashion-mnist_train.csv')
+    test_data = pd.read_csv('../data/fashion-mnist_test.csv')
+    # 2. 分离特征和标签，转成ndarray
+    x_train = train_data.iloc[:, 1:].values # [:, 1:] 表示取所有行，除第一列外的所有列; values 属性将 DataFrame 转换为 numpy.ndarray
+    y_train = train_data.iloc[:, 0].values # [:, 0] 表示取所有行，第一列; values 属性将 Series 转换为 numpy.ndarray
+    x_test = test_data.iloc[:, 1:].values
+    y_test = test_data.iloc[:, 0].values
+    # print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
+
+    # 3. 转换为张量，形状(N, 1, 28, 28) # N是样本数，1是通道数，28是高度，28是宽度
+    x_train = torch.tensor(x_train).reshape(-1, 1, 28, 28).float()
+    x_test = torch.tensor(x_test).reshape(-1, 1, 28, 28).float()
+    y_train = torch.tensor(y_train)
+    y_test = torch.tensor(y_test)
+
+    return x_train, x_test, y_train, y_test
+
+
 
 if __name__ == '__main__':
-    x_train, x_test, y_train, y_test = get_digit_data()
+    # x_train, x_test, y_train, y_test = get_digit_data()
+    # print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
+    # print(x_train.dtype, x_test.dtype, y_train.dtype, y_test.dtype)
+    x_train, x_test, y_train, y_test = get_fashion_data()
     print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
     print(x_train.dtype, x_test.dtype, y_train.dtype, y_test.dtype)
 
